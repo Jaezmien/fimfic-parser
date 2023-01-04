@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"description": "A parser for FiMFiction, and FiMFetch's text, and html file format.",
 	"main": "./build/index.js",
-	"license": "GPL",
+	"license": "GPL-3.0-or-later",
 	"dependencies": {
 		"@types/node": "^18.11.18",
 		"node-html-parser": "^6.1.4"

@@ -1,0 +1,16 @@
+{
+	"name": "fimfic-parser",
+	"author": "Jaezmien Naejara",
+	"version": "1.0.0",
+	"description": "A parser for FiMFiction, and FiMFetch's text, and html file format.",
+	"main": "./build/index.js",
+	"license": "GPL",
+	"dependencies": {
+		"@types/node": "^18.11.18",
+		"node-html-parser": "^6.1.4"
+	},
+	"scripts": {
+		"dev": "tsc -w",
+		"build": "tsc"
+	}
+}

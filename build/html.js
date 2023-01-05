@@ -34,6 +34,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
                 for (const [key, attribute] of Object.entries(el.attributes)) {
                     tree.attributes[key] = attribute.toString();
                 }
+                if (tree.attributes.src) {
+                    let u = new URL(tree.attributes.src);
+                    if (u.host === 'camo.fimfiction.net')
+                        tree.attributes.src = u.searchParams.get('url') || tree.attributes.src;
+                }
             }
             if (el.childNodes.length) {
                 if (el.childNodes.length === 1 && ((_a = el.firstChild) === null || _a === void 0 ? void 0 : _a.nodeType) === 3) {

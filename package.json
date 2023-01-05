@@ -15,7 +15,7 @@
 		}
 	},
 	"scripts": {
-		"dev": "tsup --watch src",
+		"dev": "tsup src/* --watch src/*",
 		"build": "tsup src/* -d dist --format cjs,esm --dts --clean"
 	},
 	"dependencies": {

@@ -1,2 +1,0 @@
-export default function (content: string): Promise<import("./types").FIMStory>;
-export * from './types';

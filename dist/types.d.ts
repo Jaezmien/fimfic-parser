@@ -1,5 +1,5 @@
-export type FIMFormat = 'NONE' | 'FIMFICTION' | 'HTML';
-export type FIMStory = {
+type FIMFormat = 'NONE' | 'FIMFICTION' | 'HTML';
+type FIMStory = {
     Format: 'NONE';
     Content: string[];
 } | {
@@ -8,13 +8,13 @@ export type FIMStory = {
     Author: string;
     Content: FIMChapter[];
 };
-export type FIMChapterContent = string | FIMChapterNode;
-export type FIMChapterContents = FIMChapterContent[];
-export interface FIMChapter {
+type FIMChapterContent = string | FIMChapterNode;
+type FIMChapterContents = FIMChapterContent[];
+interface FIMChapter {
     Title: string;
     Contents: FIMChapterContents;
 }
-export interface FIMChapterNode {
+interface FIMChapterNode {
     tag: string;
     attributes?: {
         [key: string]: any;
@@ -22,3 +22,5 @@ export interface FIMChapterNode {
     children?: FIMChapterContents;
     data?: string;
 }
+
+export { FIMChapter, FIMChapterContent, FIMChapterContents, FIMChapterNode, FIMFormat, FIMStory };

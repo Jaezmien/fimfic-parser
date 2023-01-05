@@ -7,17 +7,14 @@ function fetch_image_as_base64(url: string) {
 		let u = new URL(url);
 		if (u.host === 'camo.fimfiction.net') url = u.searchParams.get('url') || url;
 
+		let h: Headers;
 		fetch(url)
 			.then((r) => {
-				r.arrayBuffer()
-					.then((b) => {
-						res(
-							`data:${r.headers.get('content-type')};charset=utf-8;base64,${Buffer.from(b).toString(
-								'base64'
-							)}`
-						);
-					})
-					.catch(rej);
+				h = r.headers;
+				return r.arrayBuffer();
+			})
+			.then((b) => {
+				res(`data:${h.get('content-type')};charset=utf-8;base64,${Buffer.from(b).toString('base64')}`);
 			})
 			.catch(rej);
 	});

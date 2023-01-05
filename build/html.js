@@ -27,13 +27,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
             let u = new URL(url);
             if (u.host === 'camo.fimfiction.net')
                 url = u.searchParams.get('url') || url;
+            let h;
             fetch(url)
                 .then((r) => {
-                r.arrayBuffer()
-                    .then((b) => {
-                    res(`data:${r.headers.get('content-type')};charset=utf-8;base64,${Buffer.from(b).toString('base64')}`);
-                })
-                    .catch(rej);
+                h = r.headers;
+                return r.arrayBuffer();
+            })
+                .then((b) => {
+                res(`data:${h.get('content-type')};charset=utf-8;base64,${Buffer.from(b).toString('base64')}`);
             })
                 .catch(rej);
         });

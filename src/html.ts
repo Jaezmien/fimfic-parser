@@ -19,6 +19,13 @@ async function parse_node_tree(el: HTMLElement): Promise<FIMChapterContent> {
 			// attribute.value and attribute.nodeValue is undefined
 			tree.attributes[key] = attribute.toString();
 		}
+
+		if (tree.attributes.src) {
+			// Adjust camo.fimfiction.net links
+			let u = new URL(tree.attributes.src);
+			if (u.host === 'camo.fimfiction.net')
+				tree.attributes.src = u.searchParams.get('url') || tree.attributes.src;
+		}
 	}
 
 	if (el.childNodes.length) {

@@ -3,6 +3,10 @@ import { FIMChapter, FIMChapterContent, FIMChapterContents, FIMChapterNode, FIMS
 
 function fetch_image_as_base64(url: string) {
 	return new Promise<string>((res, rej) => {
+		// Adjust camo.fimfiction.net links
+		let u = new URL(url);
+		if (u.host === 'camo.fimfiction.net') url = u.searchParams.get('url') || url;
+
 		fetch(url)
 			.then((r) => {
 				r.arrayBuffer()

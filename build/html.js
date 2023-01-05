@@ -24,6 +24,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     const node_html_parser_1 = __importDefault(require("node-html-parser"));
     function fetch_image_as_base64(url) {
         return new Promise((res, rej) => {
+            let u = new URL(url);
+            if (u.host === 'camo.fimfiction.net')
+                url = u.searchParams.get('url') || url;
             fetch(url)
                 .then((r) => {
                 r.arrayBuffer()

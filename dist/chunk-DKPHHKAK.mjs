@@ -3,7 +3,7 @@ import {
 } from "./chunk-MYWZT2KK.mjs";
 
 // src/html.ts
-import parse_html from "node-html-parser";
+import { parse as parse_html } from "node-html-parser";
 function parse_node_tree(el) {
   return __async(this, null, function* () {
     var _a;

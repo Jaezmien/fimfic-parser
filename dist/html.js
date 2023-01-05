@@ -1,9 +1,7 @@
 "use strict";
-var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -17,10 +15,6 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
@@ -49,7 +43,7 @@ __export(html_exports, {
   default: () => html_default
 });
 module.exports = __toCommonJS(html_exports);
-var import_node_html_parser = __toESM(require("node-html-parser"));
+var import_node_html_parser = require("node-html-parser");
 function parse_node_tree(el) {
   return __async(this, null, function* () {
     var _a;
@@ -92,7 +86,7 @@ function html_default(content) {
       Title: "",
       Content: []
     };
-    const dom = (0, import_node_html_parser.default)(content);
+    const dom = (0, import_node_html_parser.parse)(content);
     story.Title = dom.querySelector("header h1 a").textContent;
     story.Author = dom.querySelector("header h2 a").textContent;
     for (const chapterNode of dom.querySelectorAll("article.chapter")) {

@@ -22,23 +22,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     const node_html_parser_1 = __importDefault(require("node-html-parser"));
-    function fetch_image_as_base64(url) {
-        return new Promise((res, rej) => {
-            let u = new URL(url);
-            if (u.host === 'camo.fimfiction.net')
-                url = u.searchParams.get('url') || url;
-            let h;
-            fetch(url)
-                .then((r) => {
-                h = r.headers;
-                return r.arrayBuffer();
-            })
-                .then((b) => {
-                res(`data:${h.get('content-type')};charset=utf-8;base64,${Buffer.from(b).toString('base64')}`);
-            })
-                .catch(rej);
-        });
-    }
     function parse_node_tree(el) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
@@ -50,9 +33,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
                 tree.attributes = {};
                 for (const [key, attribute] of Object.entries(el.attributes)) {
                     tree.attributes[key] = attribute.toString();
-                }
-                if (tree.tag === 'img' && tree.attributes.src) {
-                    tree.attributes.src = yield fetch_image_as_base64(tree.attributes.src);
                 }
             }
             if (el.childNodes.length) {

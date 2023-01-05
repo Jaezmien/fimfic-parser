@@ -1,25 +1,6 @@
 import parse_html from 'node-html-parser';
 import { FIMChapter, FIMChapterContent, FIMChapterContents, FIMChapterNode, FIMStory } from './types';
 
-function fetch_image_as_base64(url: string) {
-	return new Promise<string>((res, rej) => {
-		// Adjust camo.fimfiction.net links
-		let u = new URL(url);
-		if (u.host === 'camo.fimfiction.net') url = u.searchParams.get('url') || url;
-
-		let h: Headers;
-		fetch(url)
-			.then((r) => {
-				h = r.headers;
-				return r.arrayBuffer();
-			})
-			.then((b) => {
-				res(`data:${h.get('content-type')};charset=utf-8;base64,${Buffer.from(b).toString('base64')}`);
-			})
-			.catch(rej);
-	});
-}
-
 async function parse_node_tree(el: HTMLElement): Promise<FIMChapterContent> {
 	// Text Element
 	if (el.nodeType === 3) {
@@ -37,11 +18,6 @@ async function parse_node_tree(el: HTMLElement): Promise<FIMChapterContent> {
 		for (const [key, attribute] of Object.entries(el.attributes)) {
 			// attribute.value and attribute.nodeValue is undefined
 			tree.attributes[key] = attribute.toString();
-		}
-
-		// If the node is an image - try to cache the image as base64 data.
-		if (tree.tag === 'img' && tree.attributes.src) {
-			tree.attributes.src = await fetch_image_as_base64(tree.attributes.src);
 		}
 	}
 

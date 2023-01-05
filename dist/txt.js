@@ -77,10 +77,10 @@ function txt_default(content) {
     let fixed_header = (fix_slash ? content_parsed[0].substring(34) : content_parsed[1]).split("//").slice(1);
     story.Title = fixed_header[0].substring(1);
     story.Author = fixed_header[1].substring(1 + 3);
-    let chapter_start = fix_slash ? 2 : 3;
+    let chapter_start = 2;
     for (let i = chapter_start; i < content_parsed.length; i++) {
       const line = content_parsed[i];
-      if (!line.startsWith(`//------------------------------//`)) {
+      if (line.startsWith(`//------------------------------//`)) {
         if (chapter_content_buffer.length) {
           const chapter = {
             Title: chapter_title_buffer,

@@ -88,12 +88,12 @@ export default function (content: string): FIMStory {
 		story.Author = fixed_header[1].substring(1 + 3);
 
 		// Chapters
-		let chapter_start = fix_slash ? 2 : 3;
+		let chapter_start = 2;
 
 		for (let i = chapter_start; i < content_parsed.length; i++) {
 			const line = content_parsed[i];
 
-			if (!line.startsWith(`//------------------------------//`)) {
+			if (line.startsWith(`//------------------------------//`)) {
 				if (chapter_content_buffer.length) {
 					const chapter: FIMChapter = {
 						Title: chapter_title_buffer,

@@ -3,7 +3,7 @@ import {
 } from "./chunk-DKPHHKAK.mjs";
 import {
   txt_default
-} from "./chunk-TCAAH2AS.mjs";
+} from "./chunk-U67MJBD4.mjs";
 import {
   __async
 } from "./chunk-MYWZT2KK.mjs";

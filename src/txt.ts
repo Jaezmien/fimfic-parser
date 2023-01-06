@@ -52,8 +52,8 @@ export default function (content: string): FIMStory {
 
 		// > {TITLE}
 		// >  by {AUTHOR}
-		story.Title = content_parsed[0].substring(2);
-		story.Author = content_parsed[1].substring(6);
+		story.Title = content_parsed[0].substring(2).trim();
+		story.Author = content_parsed[1].substring(6).trim();
 
 		// Chapters
 		for (let i = 3; i < content_parsed.length; i++) {
@@ -62,7 +62,7 @@ export default function (content: string): FIMStory {
 			if (line.startsWith('> ') && content_parsed[i + 1].startsWith('> -----')) {
 				if (chapter_content_buffer.length) {
 					const chapter: FIMChapter = {
-						Title: chapter_title_buffer,
+						Title: chapter_title_buffer.trim(),
 						Contents: chapter_content_buffer,
 					};
 
@@ -84,8 +84,8 @@ export default function (content: string): FIMStory {
 
 		// // {TITLE}// by {AUTHOR}
 		let fixed_header = (fix_slash ? content_parsed[0].substring(34) : content_parsed[1]).split('//').slice(1);
-		story.Title = fixed_header[0].substring(1);
-		story.Author = fixed_header[1].substring(1 + 3);
+		story.Title = fixed_header[0].substring(1).trim();
+		story.Author = fixed_header[1].substring(1 + 3).trim();
 
 		// Chapters
 		let chapter_start = 2;
@@ -96,7 +96,7 @@ export default function (content: string): FIMStory {
 			if (line.startsWith(`//------------------------------//`)) {
 				if (chapter_content_buffer.length) {
 					const chapter: FIMChapter = {
-						Title: chapter_title_buffer,
+						Title: chapter_title_buffer.trim(),
 						Contents: chapter_content_buffer,
 					};
 
@@ -117,7 +117,7 @@ export default function (content: string): FIMStory {
 
 	if (chapter_content_buffer.length) {
 		const chapter: FIMChapter = {
-			Title: chapter_title_buffer,
+			Title: chapter_title_buffer.trim(),
 			Contents: chapter_content_buffer,
 		};
 

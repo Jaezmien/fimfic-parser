@@ -146,14 +146,14 @@ function txt_default(content) {
   let chapter_title_buffer = "";
   let chapter_content_buffer = [];
   if (format === "ARROW") {
-    story.Title = content_parsed[0].substring(2);
-    story.Author = content_parsed[1].substring(6);
+    story.Title = content_parsed[0].substring(2).trim();
+    story.Author = content_parsed[1].substring(6).trim();
     for (let i = 3; i < content_parsed.length; i++) {
       const line = content_parsed[i];
       if (line.startsWith("> ") && content_parsed[i + 1].startsWith("> -----")) {
         if (chapter_content_buffer.length) {
           const chapter = {
-            Title: chapter_title_buffer,
+            Title: chapter_title_buffer.trim(),
             Contents: chapter_content_buffer
           };
           story.Content.push(chapter);
@@ -168,15 +168,15 @@ function txt_default(content) {
     }
   } else if (format === "SLASH") {
     let fixed_header = (fix_slash ? content_parsed[0].substring(34) : content_parsed[1]).split("//").slice(1);
-    story.Title = fixed_header[0].substring(1);
-    story.Author = fixed_header[1].substring(1 + 3);
+    story.Title = fixed_header[0].substring(1).trim();
+    story.Author = fixed_header[1].substring(1 + 3).trim();
     let chapter_start = 2;
     for (let i = chapter_start; i < content_parsed.length; i++) {
       const line = content_parsed[i];
       if (line.startsWith(`//------------------------------//`)) {
         if (chapter_content_buffer.length) {
           const chapter = {
-            Title: chapter_title_buffer,
+            Title: chapter_title_buffer.trim(),
             Contents: chapter_content_buffer
           };
           story.Content.push(chapter);
@@ -192,7 +192,7 @@ function txt_default(content) {
   }
   if (chapter_content_buffer.length) {
     const chapter = {
-      Title: chapter_title_buffer,
+      Title: chapter_title_buffer.trim(),
       Contents: chapter_content_buffer
     };
     story.Content.push(chapter);

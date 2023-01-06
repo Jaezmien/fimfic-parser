@@ -76,6 +76,9 @@ export default async function (content: string): Promise<FIMStory> {
 		)
 			chapterContentNodes.pop();
 
+		if (chapterContentNodes[chapterContentNodes.length - 1].toString().includes('class="authors-note"'))
+			chapterContentNodes.pop();
+
 		const chapterContents: FIMChapterContents = [];
 		for (const contentNode of chapterContentNodes) {
 			const content = await parse_node_tree(contentNode as HTMLElement);

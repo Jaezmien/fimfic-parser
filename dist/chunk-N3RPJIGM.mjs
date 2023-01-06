@@ -56,6 +56,8 @@ function html_default(content) {
         chapterContentNodes.shift();
       while (chapterContentNodes[chapterContentNodes.length - 1].toString().startsWith("<footer>") || !chapterContentNodes[chapterContentNodes.length - 1].toString().trim())
         chapterContentNodes.pop();
+      if (chapterContentNodes[chapterContentNodes.length - 1].toString().includes('class="authors-note"'))
+        chapterContentNodes.pop();
       const chapterContents = [];
       for (const contentNode of chapterContentNodes) {
         const content2 = yield parse_node_tree(contentNode);

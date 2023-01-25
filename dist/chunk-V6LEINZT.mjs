@@ -3,7 +3,7 @@ import {
 } from "./chunk-MYWZT2KK.mjs";
 
 // src/html.ts
-import { parse as parse_html } from "node-html-parser";
+import { NodeType, parse as parse_html } from "node-html-parser";
 function parse_node_tree(el) {
   return __async(this, null, function* () {
     var _a;
@@ -40,7 +40,7 @@ function parse_node_tree(el) {
 }
 function html_default(content) {
   return __async(this, null, function* () {
-    var _a, _b, _c, _d;
+    var _a, _b;
     const story = {
       Format: "HTML",
       Author: "",
@@ -70,12 +70,13 @@ function html_default(content) {
       story.Author = dom.querySelector("header h2 a").textContent;
       for (const chapterNode of dom.querySelectorAll("article.chapter")) {
         const chapterName = Array.from(chapterNode.querySelector("header h1").childNodes).find((n) => n.nodeType === 3).toString();
-        console.log(chapterNode);
-        const chapterContentNodes = Array.from(chapterNode.children);
-        while (((_a = chapterContentNodes[0]) == null ? void 0 : _a.tagName) === "header" || ((_b = chapterContentNodes[0]) == null ? void 0 : _b.classList.contains("authors-note")))
+        const chapterContentNodes = Array.from(chapterNode.childNodes);
+        while (((_a = chapterContentNodes[0].classList) == null ? void 0 : _a.contains("authors-note")) || chapterContentNodes[0].rawTagName === "header" || !chapterContentNodes[0].rawText.trim() && chapterContentNodes[0].nodeType === NodeType.TEXT_NODE)
           chapterContentNodes.shift();
-        while (((_c = chapterContentNodes[chapterContentNodes.length - 1]) == null ? void 0 : _c.tagName) === "header" || ((_d = chapterContentNodes[chapterContentNodes.length - 1]) == null ? void 0 : _d.classList.contains("authors-note")))
-          chapterContentNodes.shift();
+        while (((_b = chapterContentNodes[chapterContentNodes.length - 1].classList) == null ? void 0 : _b.contains(
+          "authors-note"
+        )) || chapterContentNodes[chapterContentNodes.length - 1].rawTagName === "footer" || !chapterContentNodes[chapterContentNodes.length - 1].rawText.trim() && chapterContentNodes[chapterContentNodes.length - 1].nodeType === NodeType.TEXT_NODE)
+          chapterContentNodes.pop();
         const chapterContents = [];
         for (const contentNode of chapterContentNodes) {
           const content2 = yield parse_node_tree(contentNode);

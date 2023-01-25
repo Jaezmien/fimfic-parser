@@ -7,13 +7,6 @@
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"main": "./dist/index.js",
-			"module": "./dist/index.mjs",
-			"types": "./dist/index.d.ts"
-		}
-	},
 	"scripts": {
 		"dev": "tsup src/* --watch src/*",
 		"build": "tsup src/* -d dist --format cjs,esm --dts --clean"

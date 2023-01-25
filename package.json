@@ -19,10 +19,10 @@
 		"build": "tsup src/* -d dist --format cjs,esm --dts --clean"
 	},
 	"dependencies": {
-		"node-html-parser": "^6.1.4",
-		"typescript": "^4.9.4"
+		"node-html-parser": "^6.1.4"
 	},
 	"devDependencies": {
+		"typescript": "^4.9.4",
 		"@types/node": "^18.11.18",
 		"tsup": "^6.5.0"
 	}

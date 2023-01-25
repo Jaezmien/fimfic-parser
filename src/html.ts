@@ -54,35 +54,21 @@ export default async function (content: string): Promise<FIMStory> {
 
 	const dom = parse_html(content);
 
-	story.Title = dom.querySelector('header h1 a')!.textContent;
-	story.Author = dom.querySelector('header h2 a')!.textContent;
+	const is_single_chapter = !dom.querySelector('header h1 a') && !dom.querySelector('header h2 a');
+	if (is_single_chapter) {
+		story.Title = dom.querySelector('h1 a')!.textContent;
+		story.Author = dom.querySelector('h2 a')!.textContent;
 
-	for (const chapterNode of dom.querySelectorAll('article.chapter') as unknown as Array<HTMLElement>) {
-		// Grabs chapter name from a header.
-
-		// <header>
-		// 		<h1><a name='{INDEX}'></a>{CHAPTER_NAME}</h1>
-		const chapterName = Array.from(chapterNode.querySelector<HTMLHeadingElement>('header h1')!.childNodes)
-			.find((n) => n.nodeType === 3)!
-			.toString();
-
-		// Removes <header>, <footer>, and empty nodes
-		const chapterContentNodes = Array.from(chapterNode.childNodes);
-		while (chapterContentNodes[0].toString().startsWith('<header>') || !chapterContentNodes[0].toString().trim())
-			chapterContentNodes.shift();
-		while (
-			chapterContentNodes[chapterContentNodes.length - 1].toString().startsWith('<footer>') ||
-			!chapterContentNodes[chapterContentNodes.length - 1].toString().trim()
-		)
-			chapterContentNodes.pop();
-
-		if (chapterContentNodes[chapterContentNodes.length - 1].toString().includes('class="authors-note"'))
-			chapterContentNodes.pop();
-
+		const chapterName = dom.querySelector('h3')!.textContent;
 		const chapterContents: FIMChapterContents = [];
-		for (const contentNode of chapterContentNodes) {
-			const content = await parse_node_tree(contentNode as HTMLElement);
+
+		// Fortunately, we don't have any author's notes here.
+
+		let currentNode = dom.querySelector('h3')!.nextElementSibling;
+		while (currentNode) {
+			const content = await parse_node_tree(currentNode as unknown as HTMLElement);
 			chapterContents.push(content);
+			currentNode = currentNode.nextElementSibling;
 		}
 
 		const chapter: FIMChapter = {
@@ -91,6 +77,48 @@ export default async function (content: string): Promise<FIMStory> {
 		};
 
 		story.Content.push(chapter);
+	} else {
+		story.Title = dom.querySelector('header h1 a')!.textContent;
+		story.Author = dom.querySelector('header h2 a')!.textContent;
+
+		for (const chapterNode of dom.querySelectorAll('article.chapter') as unknown as Array<HTMLElement>) {
+			// Grabs chapter name from a header.
+
+			// <header>
+			// 		<h1><a name='{INDEX}'></a>{CHAPTER_NAME}</h1>
+			const chapterName = Array.from(chapterNode.querySelector<HTMLHeadingElement>('header h1')!.childNodes)
+				.find((n) => n.nodeType === 3)!
+				.toString();
+
+			// Removes <header>, <footer>, and empty nodes
+			const chapterContentNodes = Array.from(chapterNode.childNodes);
+			while (
+				chapterContentNodes[0].toString().startsWith('<header>') ||
+				!chapterContentNodes[0].toString().trim()
+			)
+				chapterContentNodes.shift();
+			while (
+				chapterContentNodes[chapterContentNodes.length - 1].toString().startsWith('<footer>') ||
+				!chapterContentNodes[chapterContentNodes.length - 1].toString().trim()
+			)
+				chapterContentNodes.pop();
+
+			if (chapterContentNodes[chapterContentNodes.length - 1].toString().includes('class="authors-note"'))
+				chapterContentNodes.pop();
+
+			const chapterContents: FIMChapterContents = [];
+			for (const contentNode of chapterContentNodes) {
+				const content = await parse_node_tree(contentNode as HTMLElement);
+				chapterContents.push(content);
+			}
+
+			const chapter: FIMChapter = {
+				Title: chapterName,
+				Contents: chapterContents,
+			};
+
+			story.Content.push(chapter);
+		}
 	}
 
 	return story;

@@ -1,49 +1,9 @@
-"use strict";
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
-};
+import {
+  __async
+} from "./chunk-MYWZT2KK.mjs";
 
 // src/html.ts
-var html_exports = {};
-__export(html_exports, {
-  default: () => html_default
-});
-module.exports = __toCommonJS(html_exports);
-var import_node_html_parser = require("node-html-parser");
+import { parse as parse_html } from "node-html-parser";
 function parse_node_tree(el) {
   return __async(this, null, function* () {
     var _a;
@@ -86,7 +46,7 @@ function html_default(content) {
       Title: "",
       Content: []
     };
-    const dom = (0, import_node_html_parser.parse)(content);
+    const dom = parse_html(content);
     const is_single_chapter = !dom.querySelector("header h1 a") && !dom.querySelector("header h2 a");
     if (is_single_chapter) {
       story.Title = dom.querySelector("h1 a").textContent;
@@ -131,5 +91,7 @@ function html_default(content) {
     return story;
   });
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {});
+
+export {
+  html_default
+};

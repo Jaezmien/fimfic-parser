@@ -89,27 +89,46 @@ function html_default(content) {
       Content: []
     };
     const dom = (0, import_node_html_parser.parse)(content);
-    story.Title = dom.querySelector("header h1 a").textContent;
-    story.Author = dom.querySelector("header h2 a").textContent;
-    for (const chapterNode of dom.querySelectorAll("article.chapter")) {
-      const chapterName = Array.from(chapterNode.querySelector("header h1").childNodes).find((n) => n.nodeType === 3).toString();
-      const chapterContentNodes = Array.from(chapterNode.childNodes);
-      while (chapterContentNodes[0].toString().startsWith("<header>") || !chapterContentNodes[0].toString().trim())
-        chapterContentNodes.shift();
-      while (chapterContentNodes[chapterContentNodes.length - 1].toString().startsWith("<footer>") || !chapterContentNodes[chapterContentNodes.length - 1].toString().trim())
-        chapterContentNodes.pop();
-      if (chapterContentNodes[chapterContentNodes.length - 1].toString().includes('class="authors-note"'))
-        chapterContentNodes.pop();
+    const is_single_chapter = !dom.querySelector("header h1 a") && !dom.querySelector("header h2 a");
+    if (is_single_chapter) {
+      story.Title = dom.querySelector("h1 a").textContent;
+      story.Author = dom.querySelector("h2 a").textContent;
+      const chapterName = dom.querySelector("h3").textContent;
       const chapterContents = [];
-      for (const contentNode of chapterContentNodes) {
-        const content2 = yield parse_node_tree(contentNode);
+      let currentNode = dom.querySelector("h3").nextElementSibling;
+      while (currentNode) {
+        const content2 = yield parse_node_tree(currentNode);
         chapterContents.push(content2);
+        currentNode = currentNode.nextElementSibling;
       }
       const chapter = {
         Title: chapterName,
         Contents: chapterContents
       };
       story.Content.push(chapter);
+    } else {
+      story.Title = dom.querySelector("header h1 a").textContent;
+      story.Author = dom.querySelector("header h2 a").textContent;
+      for (const chapterNode of dom.querySelectorAll("article.chapter")) {
+        const chapterName = Array.from(chapterNode.querySelector("header h1").childNodes).find((n) => n.nodeType === 3).toString();
+        const chapterContentNodes = Array.from(chapterNode.childNodes);
+        while (chapterContentNodes[0].toString().startsWith("<header>") || !chapterContentNodes[0].toString().trim())
+          chapterContentNodes.shift();
+        while (chapterContentNodes[chapterContentNodes.length - 1].toString().startsWith("<footer>") || !chapterContentNodes[chapterContentNodes.length - 1].toString().trim())
+          chapterContentNodes.pop();
+        if (chapterContentNodes[chapterContentNodes.length - 1].toString().includes('class="authors-note"'))
+          chapterContentNodes.pop();
+        const chapterContents = [];
+        for (const contentNode of chapterContentNodes) {
+          const content2 = yield parse_node_tree(contentNode);
+          chapterContents.push(content2);
+        }
+        const chapter = {
+          Title: chapterName,
+          Contents: chapterContents
+        };
+        story.Content.push(chapter);
+      }
     }
     return story;
   });

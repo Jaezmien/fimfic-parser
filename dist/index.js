@@ -82,6 +82,7 @@ function parse_node_tree(el) {
 }
 function html_default(content) {
   return __async(this, null, function* () {
+    var _a, _b;
     const story = {
       Format: "HTML",
       Author: "",
@@ -112,11 +113,11 @@ function html_default(content) {
       for (const chapterNode of dom.querySelectorAll("article.chapter")) {
         const chapterName = Array.from(chapterNode.querySelector("header h1").childNodes).find((n) => n.nodeType === 3).toString();
         const chapterContentNodes = Array.from(chapterNode.childNodes);
-        while (chapterContentNodes[0].toString().startsWith("<header>") || !chapterContentNodes[0].toString().trim())
+        while (((_a = chapterContentNodes[0].classList) == null ? void 0 : _a.contains("authors-note")) || chapterContentNodes[0].rawTagName === "header" || !chapterContentNodes[0].rawText.trim() && chapterContentNodes[0].nodeType === import_node_html_parser.NodeType.TEXT_NODE)
           chapterContentNodes.shift();
-        while (chapterContentNodes[chapterContentNodes.length - 1].toString().startsWith("<footer>") || !chapterContentNodes[chapterContentNodes.length - 1].toString().trim())
-          chapterContentNodes.pop();
-        if (chapterContentNodes[chapterContentNodes.length - 1].toString().includes('class="authors-note"'))
+        while (((_b = chapterContentNodes[chapterContentNodes.length - 1].classList) == null ? void 0 : _b.contains(
+          "authors-note"
+        )) || chapterContentNodes[chapterContentNodes.length - 1].rawTagName === "footer" || !chapterContentNodes[chapterContentNodes.length - 1].rawText.trim() && chapterContentNodes[chapterContentNodes.length - 1].nodeType === import_node_html_parser.NodeType.TEXT_NODE)
           chapterContentNodes.pop();
         const chapterContents = [];
         for (const contentNode of chapterContentNodes) {

@@ -1,6 +1,6 @@
 import {
   __async
-} from "./chunk-MYWZT2KK.mjs";
+} from "./chunk-RDTRUTC6.js";
 
 // src/html.ts
 import { NodeType, parse as parse_html } from "node-html-parser";

@@ -1,6 +1,6 @@
 import {
   __async
-} from "./chunk-RDTRUTC6.js";
+} from "./chunk-5BKUTXDD.js";
 
 // src/html.ts
 import { NodeType, parse as parse_html } from "node-html-parser";
@@ -94,5 +94,6 @@ function html_default(content) {
 }
 
 export {
+  parse_node_tree,
   html_default
 };

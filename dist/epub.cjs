@@ -1691,14 +1691,12 @@ var require_fxp = __commonJS({
   }
 });
 
-// src/index.ts
-var src_exports = {};
-__export(src_exports, {
-  default: () => src_default
-});
-module.exports = __toCommonJS(src_exports);
-
 // src/epub.ts
+var epub_exports = {};
+__export(epub_exports, {
+  default: () => epub_default
+});
+module.exports = __toCommonJS(epub_exports);
 var import_adm_zip = __toESM(require("adm-zip"), 1);
 var import_fast_xml_parser = __toESM(require_fxp(), 1);
 var import_node_html_parser2 = require("node-html-parser");
@@ -1737,60 +1735,6 @@ function parse_node_tree(el) {
       }
     }
     return tree;
-  });
-}
-function html_default(content) {
-  return __async(this, null, function* () {
-    var _a, _b;
-    const story = {
-      Format: "HTML",
-      Author: "",
-      Title: "",
-      Content: []
-    };
-    const dom = (0, import_node_html_parser.parse)(content);
-    const is_single_chapter = !dom.querySelector("header h1 a") && !dom.querySelector("header h2 a");
-    if (is_single_chapter) {
-      story.Title = dom.querySelector("h1 a").textContent;
-      story.Author = dom.querySelector("h2 a").textContent;
-      const chapterName = dom.querySelector("h3").textContent;
-      const chapterContents = [];
-      let currentNode = dom.querySelector("h3").nextElementSibling;
-      while (currentNode) {
-        const content2 = yield parse_node_tree(currentNode);
-        chapterContents.push(content2);
-        currentNode = currentNode.nextElementSibling;
-      }
-      const chapter = {
-        Title: chapterName,
-        Contents: chapterContents
-      };
-      story.Content.push(chapter);
-    } else {
-      story.Title = dom.querySelector("header h1 a").textContent;
-      story.Author = dom.querySelector("header h2 a").textContent;
-      for (const chapterNode of dom.querySelectorAll("article.chapter")) {
-        const chapterName = Array.from(chapterNode.querySelector("header h1").childNodes).find((n) => n.nodeType === 3).toString();
-        const chapterContentNodes = Array.from(chapterNode.childNodes);
-        while (((_a = chapterContentNodes[0].classList) == null ? void 0 : _a.contains("authors-note")) || chapterContentNodes[0].rawTagName === "header" || !chapterContentNodes[0].rawText.trim() && chapterContentNodes[0].nodeType === import_node_html_parser.NodeType.TEXT_NODE)
-          chapterContentNodes.shift();
-        while (((_b = chapterContentNodes[chapterContentNodes.length - 1].classList) == null ? void 0 : _b.contains(
-          "authors-note"
-        )) || chapterContentNodes[chapterContentNodes.length - 1].rawTagName === "footer" || !chapterContentNodes[chapterContentNodes.length - 1].rawText.trim() && chapterContentNodes[chapterContentNodes.length - 1].nodeType === import_node_html_parser.NodeType.TEXT_NODE)
-          chapterContentNodes.pop();
-        const chapterContents = [];
-        for (const contentNode of chapterContentNodes) {
-          const content2 = yield parse_node_tree(contentNode);
-          chapterContents.push(content2);
-        }
-        const chapter = {
-          Title: chapterName,
-          Contents: chapterContents
-        };
-        story.Content.push(chapter);
-      }
-    }
-    return story;
   });
 }
 
@@ -1851,108 +1795,6 @@ function epub_default(content) {
       story.Content.push(chapter);
     }
     return story;
-  });
-}
-
-// src/txt.ts
-function txt_default(content) {
-  let content_parsed = content.replace(/\t/g, "\n").split("\n");
-  content_parsed = content_parsed.map((x) => x.replace("\r", "").trim()).filter((x) => x !== "");
-  let story = {
-    Format: "FIMFICTION",
-    Title: "",
-    Author: "",
-    Content: []
-  };
-  let fix_slash = false;
-  let format = "SLASH";
-  if (content_parsed[0].startsWith(`//------------------------------//`)) {
-    if (content_parsed[0].startsWith(`//------------------------------////`)) {
-      content_parsed = content_parsed.join("\n").replace(/.\/\/------------------------------\/\//g, `
-//------------------------------//`).replace(/\/\/------------------------------\/\/\s{4,}/g, `//------------------------------//
-`).replace(/\s{18,20}/g, " ").split("\n");
-      fix_slash = true;
-    }
-    format = "SLASH";
-  } else if (content_parsed[0].startsWith("> ")) {
-    format = "ARROW";
-  } else {
-    return {
-      Format: "NONE",
-      Content: content_parsed
-    };
-  }
-  let chapter_title_buffer = "";
-  let chapter_content_buffer = [];
-  if (format === "ARROW") {
-    story.Title = content_parsed[0].substring(2).trim();
-    story.Author = content_parsed[1].substring(6).trim();
-    for (let i = 3; i < content_parsed.length; i++) {
-      const line = content_parsed[i];
-      if (line.startsWith("> ") && content_parsed[i + 1].startsWith("> -----")) {
-        if (chapter_content_buffer.length) {
-          const chapter = {
-            Title: chapter_title_buffer.trim(),
-            Contents: chapter_content_buffer
-          };
-          story.Content.push(chapter);
-          chapter_content_buffer = [];
-          chapter_title_buffer = "";
-        }
-        chapter_title_buffer = line.substring(2);
-        i = i + 1;
-        continue;
-      }
-      chapter_content_buffer.push(line);
-    }
-  } else if (format === "SLASH") {
-    let fixed_header = (fix_slash ? content_parsed[0].substring(34) : content_parsed[1]).split("//").slice(1);
-    story.Title = fixed_header[0].substring(1).trim();
-    story.Author = fixed_header[1].substring(1 + 3).trim();
-    let chapter_start = 2;
-    for (let i = chapter_start; i < content_parsed.length; i++) {
-      const line = content_parsed[i];
-      if (line.startsWith(`//------------------------------//`)) {
-        if (chapter_content_buffer.length) {
-          const chapter = {
-            Title: chapter_title_buffer.trim(),
-            Contents: chapter_content_buffer
-          };
-          story.Content.push(chapter);
-          chapter_content_buffer = [];
-          chapter_title_buffer = "";
-        }
-        chapter_title_buffer = content_parsed[i + 1].substring(3);
-        i = i + 2;
-        continue;
-      }
-      chapter_content_buffer.push(line);
-    }
-  }
-  if (chapter_content_buffer.length) {
-    const chapter = {
-      Title: chapter_title_buffer.trim(),
-      Contents: chapter_content_buffer
-    };
-    story.Content.push(chapter);
-    chapter_content_buffer = [];
-    chapter_title_buffer = "";
-  }
-  return story;
-}
-
-// src/index.ts
-function src_default(content) {
-  return __async(this, null, function* () {
-    if (typeof content === "string") {
-      if (content.startsWith("<!DOCTYPE html>") || content.startsWith("<html>")) {
-        return yield html_default(content);
-      } else {
-        return txt_default(content);
-      }
-    } else {
-      return yield epub_default(content);
-    }
   });
 }
 // Annotate the CommonJS export names for ESM import in node:

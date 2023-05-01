@@ -1,50 +1,11 @@
-"use strict";
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
-};
+import {
+  parse_node_tree
+} from "./chunk-TH3QX3TM.js";
+import {
+  __async,
+  __commonJS,
+  __toESM
+} from "./chunk-5BKUTXDD.js";
 
 // node_modules/fast-xml-parser/src/util.js
 var require_util = __commonJS({
@@ -466,7 +427,7 @@ var require_OptionsBuilder = __commonJS({
 
 // node_modules/fast-xml-parser/src/xmlparser/xmlNode.js
 var require_xmlNode = __commonJS({
-  "node_modules/fast-xml-parser/src/xmlparser/xmlNode.js"(exports, module2) {
+  "node_modules/fast-xml-parser/src/xmlparser/xmlNode.js"(exports, module) {
     "use strict";
     var XmlNode = class {
       constructor(tagname) {
@@ -489,13 +450,13 @@ var require_xmlNode = __commonJS({
         }
       }
     };
-    module2.exports = XmlNode;
+    module.exports = XmlNode;
   }
 });
 
 // node_modules/fast-xml-parser/src/xmlparser/DocTypeReader.js
 var require_DocTypeReader = __commonJS({
-  "node_modules/fast-xml-parser/src/xmlparser/DocTypeReader.js"(exports, module2) {
+  "node_modules/fast-xml-parser/src/xmlparser/DocTypeReader.js"(exports, module) {
     function readDocType(xmlData, i) {
       const entities = {};
       if (xmlData[i + 3] === "O" && xmlData[i + 4] === "C" && xmlData[i + 5] === "T" && xmlData[i + 6] === "Y" && xmlData[i + 7] === "P" && xmlData[i + 8] === "E") {
@@ -591,13 +552,13 @@ var require_DocTypeReader = __commonJS({
         return true;
       return false;
     }
-    module2.exports = readDocType;
+    module.exports = readDocType;
   }
 });
 
 // node_modules/strnum/strnum.js
 var require_strnum = __commonJS({
-  "node_modules/strnum/strnum.js"(exports, module2) {
+  "node_modules/strnum/strnum.js"(exports, module) {
     var hexRegex = /^[-+]?0x[a-fA-F0-9]+$/;
     var numRegex = /^([\-\+])?(0*)(\.[0-9]+([eE]\-?[0-9]+)?|[0-9]+(\.[0-9]+([eE]\-?[0-9]+)?)?)$/;
     if (!Number.parseInt && window.parseInt) {
@@ -687,13 +648,13 @@ var require_strnum = __commonJS({
       }
       return numStr;
     }
-    module2.exports = toNumber;
+    module.exports = toNumber;
   }
 });
 
 // node_modules/fast-xml-parser/src/xmlparser/OrderedObjParser.js
 var require_OrderedObjParser = __commonJS({
-  "node_modules/fast-xml-parser/src/xmlparser/OrderedObjParser.js"(exports, module2) {
+  "node_modules/fast-xml-parser/src/xmlparser/OrderedObjParser.js"(exports, module) {
     "use strict";
     var util = require_util();
     var xmlNode = require_xmlNode();
@@ -1172,7 +1133,7 @@ var require_OrderedObjParser = __commonJS({
         }
       }
     }
-    module2.exports = OrderedObjParser;
+    module.exports = OrderedObjParser;
   }
 });
 
@@ -1274,7 +1235,7 @@ var require_node2json = __commonJS({
 
 // node_modules/fast-xml-parser/src/xmlparser/XMLParser.js
 var require_XMLParser = __commonJS({
-  "node_modules/fast-xml-parser/src/xmlparser/XMLParser.js"(exports, module2) {
+  "node_modules/fast-xml-parser/src/xmlparser/XMLParser.js"(exports, module) {
     var { buildOptions } = require_OptionsBuilder();
     var OrderedObjParser = require_OrderedObjParser();
     var { prettify } = require_node2json();
@@ -1319,13 +1280,13 @@ var require_XMLParser = __commonJS({
         }
       }
     };
-    module2.exports = XMLParser2;
+    module.exports = XMLParser2;
   }
 });
 
 // node_modules/fast-xml-parser/src/xmlbuilder/orderedJs2Xml.js
 var require_orderedJs2Xml = __commonJS({
-  "node_modules/fast-xml-parser/src/xmlbuilder/orderedJs2Xml.js"(exports, module2) {
+  "node_modules/fast-xml-parser/src/xmlbuilder/orderedJs2Xml.js"(exports, module) {
     var EOL = "\n";
     function toXml(jArray, options) {
       let indentation = "";
@@ -1447,13 +1408,13 @@ var require_orderedJs2Xml = __commonJS({
       }
       return textValue;
     }
-    module2.exports = toXml;
+    module.exports = toXml;
   }
 });
 
 // node_modules/fast-xml-parser/src/xmlbuilder/json2xml.js
 var require_json2xml = __commonJS({
-  "node_modules/fast-xml-parser/src/xmlbuilder/json2xml.js"(exports, module2) {
+  "node_modules/fast-xml-parser/src/xmlbuilder/json2xml.js"(exports, module) {
     "use strict";
     var buildFromOrderedJs = require_orderedJs2Xml();
     var defaultOptions = {
@@ -1672,18 +1633,18 @@ var require_json2xml = __commonJS({
         return false;
       }
     }
-    module2.exports = Builder;
+    module.exports = Builder;
   }
 });
 
 // node_modules/fast-xml-parser/src/fxp.js
 var require_fxp = __commonJS({
-  "node_modules/fast-xml-parser/src/fxp.js"(exports, module2) {
+  "node_modules/fast-xml-parser/src/fxp.js"(exports, module) {
     "use strict";
     var validator = require_validator();
     var XMLParser2 = require_XMLParser();
     var XMLBuilder = require_json2xml();
-    module2.exports = {
+    module.exports = {
       XMLParser: XMLParser2,
       XMLValidator: validator,
       XMLBuilder
@@ -1691,113 +1652,13 @@ var require_fxp = __commonJS({
   }
 });
 
-// src/index.ts
-var src_exports = {};
-__export(src_exports, {
-  default: () => src_default
-});
-module.exports = __toCommonJS(src_exports);
-
 // src/epub.ts
-var import_adm_zip = __toESM(require("adm-zip"), 1);
 var import_fast_xml_parser = __toESM(require_fxp(), 1);
-var import_node_html_parser2 = require("node-html-parser");
-
-// src/html.ts
-var import_node_html_parser = require("node-html-parser");
-function parse_node_tree(el) {
-  return __async(this, null, function* () {
-    var _a;
-    if (el.nodeType === 3) {
-      return el.textContent;
-    }
-    const tree = { tag: el.tagName.toLowerCase() };
-    if (Object.keys(el.attributes).length) {
-      tree.attributes = {};
-      for (const [key, attribute] of Object.entries(el.attributes)) {
-        tree.attributes[key] = attribute.toString();
-      }
-      if (tree.attributes.src) {
-        let u = new URL(tree.attributes.src);
-        if (u.host === "camo.fimfiction.net")
-          tree.attributes.src = u.searchParams.get("url") || tree.attributes.src;
-      }
-    }
-    if (el.childNodes.length) {
-      if (el.childNodes.length === 1 && ((_a = el.firstChild) == null ? void 0 : _a.nodeType) === 3) {
-        if (tree.tag === "p")
-          return yield parse_node_tree(el.firstChild);
-        else
-          tree.data = yield parse_node_tree(el.firstChild);
-      } else {
-        tree.children = [];
-        for (const child of el.childNodes) {
-          tree.children.push(yield parse_node_tree(child));
-        }
-      }
-    }
-    return tree;
-  });
-}
-function html_default(content) {
-  return __async(this, null, function* () {
-    var _a, _b;
-    const story = {
-      Format: "HTML",
-      Author: "",
-      Title: "",
-      Content: []
-    };
-    const dom = (0, import_node_html_parser.parse)(content);
-    const is_single_chapter = !dom.querySelector("header h1 a") && !dom.querySelector("header h2 a");
-    if (is_single_chapter) {
-      story.Title = dom.querySelector("h1 a").textContent;
-      story.Author = dom.querySelector("h2 a").textContent;
-      const chapterName = dom.querySelector("h3").textContent;
-      const chapterContents = [];
-      let currentNode = dom.querySelector("h3").nextElementSibling;
-      while (currentNode) {
-        const content2 = yield parse_node_tree(currentNode);
-        chapterContents.push(content2);
-        currentNode = currentNode.nextElementSibling;
-      }
-      const chapter = {
-        Title: chapterName,
-        Contents: chapterContents
-      };
-      story.Content.push(chapter);
-    } else {
-      story.Title = dom.querySelector("header h1 a").textContent;
-      story.Author = dom.querySelector("header h2 a").textContent;
-      for (const chapterNode of dom.querySelectorAll("article.chapter")) {
-        const chapterName = Array.from(chapterNode.querySelector("header h1").childNodes).find((n) => n.nodeType === 3).toString();
-        const chapterContentNodes = Array.from(chapterNode.childNodes);
-        while (((_a = chapterContentNodes[0].classList) == null ? void 0 : _a.contains("authors-note")) || chapterContentNodes[0].rawTagName === "header" || !chapterContentNodes[0].rawText.trim() && chapterContentNodes[0].nodeType === import_node_html_parser.NodeType.TEXT_NODE)
-          chapterContentNodes.shift();
-        while (((_b = chapterContentNodes[chapterContentNodes.length - 1].classList) == null ? void 0 : _b.contains(
-          "authors-note"
-        )) || chapterContentNodes[chapterContentNodes.length - 1].rawTagName === "footer" || !chapterContentNodes[chapterContentNodes.length - 1].rawText.trim() && chapterContentNodes[chapterContentNodes.length - 1].nodeType === import_node_html_parser.NodeType.TEXT_NODE)
-          chapterContentNodes.pop();
-        const chapterContents = [];
-        for (const contentNode of chapterContentNodes) {
-          const content2 = yield parse_node_tree(contentNode);
-          chapterContents.push(content2);
-        }
-        const chapter = {
-          Title: chapterName,
-          Contents: chapterContents
-        };
-        story.Content.push(chapter);
-      }
-    }
-    return story;
-  });
-}
-
-// src/epub.ts
+import AdmZip from "adm-zip";
+import { NodeType, parse as parse_html } from "node-html-parser";
 function epub_default(content) {
   return __async(this, null, function* () {
-    const zip = new import_adm_zip.default(content);
+    const zip = new AdmZip(content);
     const opf_entry = zip.getEntry("book.opf");
     if (!opf_entry)
       throw new Error("Cannot find book.opf - is this a FiMFiction .epub?");
@@ -1825,11 +1686,11 @@ function epub_default(content) {
       if (!chapter_entry)
         throw Error("fimfic-parser error - chapter missing");
       const chapter_content = chapter_entry.getData().toString("utf-8");
-      const dom = (0, import_node_html_parser2.parse)(chapter_content);
+      const dom = parse_html(chapter_content);
       const chapterContents = [];
       const chapterNode = dom.getElementsByTagName("body")[0];
       const chapterContentNodes = Array.from(chapterNode.childNodes);
-      while (!chapterContentNodes[0].rawText.trim() && chapterContentNodes[0].nodeType === import_node_html_parser2.NodeType.TEXT_NODE)
+      while (!chapterContentNodes[0].rawText.trim() && chapterContentNodes[0].nodeType === NodeType.TEXT_NODE)
         chapterContentNodes.shift();
       const chapterTitleElement = chapterContentNodes.shift();
       const chapter = {
@@ -1854,106 +1715,6 @@ function epub_default(content) {
   });
 }
 
-// src/txt.ts
-function txt_default(content) {
-  let content_parsed = content.replace(/\t/g, "\n").split("\n");
-  content_parsed = content_parsed.map((x) => x.replace("\r", "").trim()).filter((x) => x !== "");
-  let story = {
-    Format: "FIMFICTION",
-    Title: "",
-    Author: "",
-    Content: []
-  };
-  let fix_slash = false;
-  let format = "SLASH";
-  if (content_parsed[0].startsWith(`//------------------------------//`)) {
-    if (content_parsed[0].startsWith(`//------------------------------////`)) {
-      content_parsed = content_parsed.join("\n").replace(/.\/\/------------------------------\/\//g, `
-//------------------------------//`).replace(/\/\/------------------------------\/\/\s{4,}/g, `//------------------------------//
-`).replace(/\s{18,20}/g, " ").split("\n");
-      fix_slash = true;
-    }
-    format = "SLASH";
-  } else if (content_parsed[0].startsWith("> ")) {
-    format = "ARROW";
-  } else {
-    return {
-      Format: "NONE",
-      Content: content_parsed
-    };
-  }
-  let chapter_title_buffer = "";
-  let chapter_content_buffer = [];
-  if (format === "ARROW") {
-    story.Title = content_parsed[0].substring(2).trim();
-    story.Author = content_parsed[1].substring(6).trim();
-    for (let i = 3; i < content_parsed.length; i++) {
-      const line = content_parsed[i];
-      if (line.startsWith("> ") && content_parsed[i + 1].startsWith("> -----")) {
-        if (chapter_content_buffer.length) {
-          const chapter = {
-            Title: chapter_title_buffer.trim(),
-            Contents: chapter_content_buffer
-          };
-          story.Content.push(chapter);
-          chapter_content_buffer = [];
-          chapter_title_buffer = "";
-        }
-        chapter_title_buffer = line.substring(2);
-        i = i + 1;
-        continue;
-      }
-      chapter_content_buffer.push(line);
-    }
-  } else if (format === "SLASH") {
-    let fixed_header = (fix_slash ? content_parsed[0].substring(34) : content_parsed[1]).split("//").slice(1);
-    story.Title = fixed_header[0].substring(1).trim();
-    story.Author = fixed_header[1].substring(1 + 3).trim();
-    let chapter_start = 2;
-    for (let i = chapter_start; i < content_parsed.length; i++) {
-      const line = content_parsed[i];
-      if (line.startsWith(`//------------------------------//`)) {
-        if (chapter_content_buffer.length) {
-          const chapter = {
-            Title: chapter_title_buffer.trim(),
-            Contents: chapter_content_buffer
-          };
-          story.Content.push(chapter);
-          chapter_content_buffer = [];
-          chapter_title_buffer = "";
-        }
-        chapter_title_buffer = content_parsed[i + 1].substring(3);
-        i = i + 2;
-        continue;
-      }
-      chapter_content_buffer.push(line);
-    }
-  }
-  if (chapter_content_buffer.length) {
-    const chapter = {
-      Title: chapter_title_buffer.trim(),
-      Contents: chapter_content_buffer
-    };
-    story.Content.push(chapter);
-    chapter_content_buffer = [];
-    chapter_title_buffer = "";
-  }
-  return story;
-}
-
-// src/index.ts
-function src_default(content) {
-  return __async(this, null, function* () {
-    if (typeof content === "string") {
-      if (content.startsWith("<!DOCTYPE html>") || content.startsWith("<html>")) {
-        return yield html_default(content);
-      } else {
-        return txt_default(content);
-      }
-    } else {
-      return yield epub_default(content);
-    }
-  });
-}
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {});
+export {
+  epub_default
+};

@@ -1,4 +1,4 @@
-type FIMFormat = 'NONE' | 'FIMFICTION' | 'HTML';
+type FIMFormat = 'NONE' | 'FIMFICTION' | 'HTML' | 'EPUB';
 type FIMStory = {
     Format: 'NONE';
     Content: string[];

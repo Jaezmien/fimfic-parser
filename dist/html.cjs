@@ -40,7 +40,8 @@ var __async = (__this, __arguments, generator) => {
 // src/html.ts
 var html_exports = {};
 __export(html_exports, {
-  default: () => html_default
+  default: () => html_default,
+  parse_node_tree: () => parse_node_tree
 });
 module.exports = __toCommonJS(html_exports);
 var import_node_html_parser = require("node-html-parser");
@@ -133,4 +134,6 @@ function html_default(content) {
   });
 }
 // Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {});
+0 && (module.exports = {
+  parse_node_tree
+});

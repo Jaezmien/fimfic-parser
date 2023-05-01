@@ -1,4 +1,4 @@
-export type FIMFormat = 'NONE' | 'FIMFICTION' | 'HTML';
+export type FIMFormat = 'NONE' | 'FIMFICTION' | 'HTML' | 'EPUB';
 
 export type FIMStory =
 	| {

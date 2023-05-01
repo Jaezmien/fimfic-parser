@@ -1,7 +1,7 @@
 import { HTMLElement, NodeType, parse as parse_html } from 'node-html-parser';
 import { FIMChapter, FIMChapterContent, FIMChapterContents, FIMChapterNode, FIMStory } from './types';
 
-async function parse_node_tree(el: HTMLElement): Promise<FIMChapterContent> {
+export async function parse_node_tree(el: HTMLElement): Promise<FIMChapterContent> {
 	// Text Element
 	if (el.nodeType === 3) {
 		return el.textContent!;

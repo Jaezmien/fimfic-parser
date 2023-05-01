@@ -15,7 +15,8 @@
 	},
 	"scripts": {
 		"dev": "tsup src/* --watch src/*",
-		"build": "tsup src/* -d dist --format esm,cjs --dts --clean"
+		"build": "tsup src/* -d dist --format esm,cjs --dts --clean",
+		"parse": "node dist/parse.js"
 	},
 	"dependencies": {
 		"node-html-parser": "^6.1.4"
